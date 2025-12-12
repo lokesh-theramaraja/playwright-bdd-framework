@@ -1,8 +1,9 @@
 const { Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
 const playwright = require('playwright');
+const fs = require('fs');
 require('dotenv').config();
 
-setDefaultTimeout(60 * 1000); // 60s timeout for steps
+setDefaultTimeout(30 * 1000); // 60s timeout for steps
 
 Before(async function (scenario) {
   const browserName = process.env.BROWSER || 'chromium';
@@ -12,15 +13,17 @@ Before(async function (scenario) {
 });
 
 After(async function (scenario) {
-  if (scenario.result && scenario.result.status === 'failed') {
+  if (scenario.result && String(scenario.result.status).toLowerCase() === 'failed') {
     // capture screenshot, attach to report if attach available
     try {
-      this.attach(`Browser: ${process.env.BROWSER || 'chromium'}`);
-      const screenshot = await this.page.screenshot({ path: `reports/failure-${Date.now()}.png`, fullPage: true });
-      if (this.attach) this.attach(screenshot, 'image/png');
-    } catch (e) { /* ignore */ }
+      const buffer = await this.page.screenshot();
+      this.attach(buffer, 'image/png');
+    } catch (e) {
+      console.error('Error capturing screenshot on failure:', e);
+    }
   }
-  await this.page.close();
-  await this.context.close();
-  await this.browser.close();
+  // close resources if they exist
+  try { if (this.page) await this.page.close(); } catch(e){}
+  try { if (this.context) await this.context.close(); } catch(e){}
+  try { if (this.browser) await this.browser.close(); } catch(e){}
 });

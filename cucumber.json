@@ -4,13 +4,10 @@
     "format": [
       "html:reports/cucumber-report.html",
       "json:reports/cucumber-report.json",
-      "junit:reports/cucumber-report.xml",
-      "progress-bar",
-      "summary"
+      "junit:reports/cucumber-report.xml"
     ],
     "formatOptions": {
-      "pretty": true,
-      "snippetInterface": "async-await"
+      "pretty": true
     },
     "require": [
       "./support/world.js",
@@ -20,7 +17,7 @@
     "paths": [
       "./features/**/*.feature"
     ],
-    "retry": 1,
+    "retry": 0,
     "timeout": 60000
   }
 }

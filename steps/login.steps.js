@@ -1,7 +1,6 @@
 const { expect } = require('@playwright/test');
 const { Given, When, Then } = require('@cucumber/cucumber');
 const LoginPage = require('../pages/login.page');
-const assert = require('assert');
 
 Given('I am on the Playwright website', async function () {
   await this.page.goto('https://playwright.dev/');
@@ -12,7 +11,7 @@ When('I click the "Get started" button', async function () {
 });
 
 Then('I should be on the {string} page', async function (title) {
-  await expect(this.page).toHaveTitle(new RegExp('Installation'));
+  await expect(this.page).toHaveTitle(title);
 });
 
 Given('I open the login page', async function () {
@@ -27,6 +26,5 @@ When('I login with username {string} and password {string}', async function (use
 Then('I should see the dashboard', async function () {
   // simple check - adjust selector to your app
   const dashboardHeader = await this.page.textContent('h1');
-  assert.strictEqual(dashboardHeader, '1Secure Area page for Automation Testing Practice');
-
+  expect(dashboardHeader).toEqual('Secure Area page for Automation Testing Practice');
 });
