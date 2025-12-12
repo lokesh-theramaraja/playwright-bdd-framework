@@ -7,7 +7,8 @@ setDefaultTimeout(30 * 1000); // 60s timeout for steps
 
 Before(async function (scenario) {
   const browserName = process.env.BROWSER || 'chromium';
-  this.browser = await playwright[browserName].launch({ headless: false });
+  const headless = process.env.HEADLESS === 'true';
+  this.browser = await playwright[browserName].launch({ headless: headless });
   this.context = await this.browser.newContext();
   this.page = await this.context.newPage();
 });
