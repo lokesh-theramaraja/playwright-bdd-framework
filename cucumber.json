@@ -1,0 +1,26 @@
+{
+  "default": {
+    "parallel": 2,
+    "format": [
+      "html:reports/cucumber-report.html",
+      "json:reports/cucumber-report.json",
+      "junit:reports/cucumber-report.xml",
+      "progress-bar",
+      "summary"
+    ],
+    "formatOptions": {
+      "pretty": true,
+      "snippetInterface": "async-await"
+    },
+    "require": [
+      "./support/world.js",
+      "./support/hooks.js",
+      "./steps/**/*.js"
+    ],
+    "paths": [
+      "./features/**/*.feature"
+    ],
+    "retry": 1,
+    "timeout": 60000
+  }
+}
