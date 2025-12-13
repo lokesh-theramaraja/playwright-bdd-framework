@@ -7,7 +7,7 @@ Feature: Sample Feature
   Scenario: Visit the Playwright website
     Given I am on the Playwright website
     When I click the "Get started" button
-    Then I should be on the "Installation | Playwright" page
+    Then I should be on the "Installation | Playwright1" page
 
 @login
   Scenario: Successful login

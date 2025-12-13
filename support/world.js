@@ -1,12 +1,12 @@
-const { setWorldConstructor } = require('@cucumber/cucumber');
+import { setWorldConstructor } from '@cucumber/cucumber';
 
 class CustomWorld {
-  constructor() {
+  constructor({ attach }) {
     // will be set in hooks before each scenario
     this.browser = null;
     this.context = null;
     this.page = null;
-    this.attach = null; // cucumber attach function (set in hooks)
+    this.attach = attach;
   }
 }
 

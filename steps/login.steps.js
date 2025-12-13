@@ -1,6 +1,6 @@
-const { expect } = require('@playwright/test');
-const { Given, When, Then } = require('@cucumber/cucumber');
-const LoginPage = require('../pages/login.page');
+import { expect } from '@playwright/test';
+import { Given, When, Then } from '@cucumber/cucumber';
+import LoginPage from '../pages/login.page.js';
 
 Given('I am on the Playwright website', async function () {
   await this.page.goto('https://playwright.dev/');
@@ -16,7 +16,7 @@ Then('I should be on the {string} page', async function (title) {
 
 Given('I open the login page', async function () {
   this.loginPage = new LoginPage(this.page);
-  await this.loginPage.goto('https://practice.expandtesting.com/login');
+  await this.loginPage.goto(process.env.BASE_URL);
 });
 
 When('I login with username {string} and password {string}', async function (username, password) {
